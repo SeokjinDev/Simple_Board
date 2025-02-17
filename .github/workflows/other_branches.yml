@@ -13,14 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: '3306'
-          container port: '3306'
-          character set server: 'utf8'
-          mysql version: '8.0.41'
-          mysql database: ${{ secrets.MYSQL_DATABASE }}
-          mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
       # Set up Java 21
       - name: Set up JDK 21
@@ -28,6 +20,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+
+      - name: Setup MySQL
+        uses: samin/mysql-action@v1
+        with:
+          host port: '3306'
+          container port: '3306'
+          mysql version: '8.0.41'
+          mysql database: ${{ secrets.MYSQL_DATABASE }}
+          mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
       # 분리한 application.yml 생성
       - name: Create application.yml
@@ -44,7 +45,7 @@ jobs:
 
       # Build Docker Image
       - name: BuiSetting CI - GitHub Actionld Docker Image
-        run : docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/simpleboard_action .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/simpleboard_action .
 
       # DockerHub Login
       - name: Login to Docker Hub
