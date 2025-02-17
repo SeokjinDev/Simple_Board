@@ -13,6 +13,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: '3306'
+          container port: '3306'
+          character set server: 'utf8'
+          mysql version: '8.0.41'
+          mysql database: ${{ secrets.MYSQL_DATABASE }}
+          mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
       # Set up Java 21
       - name: Set up JDK 21
