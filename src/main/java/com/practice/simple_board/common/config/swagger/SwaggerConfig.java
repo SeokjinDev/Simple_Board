@@ -1,4 +1,4 @@
-package com.practice.simple_board.common.config;
+package com.practice.simple_board.common.config.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
